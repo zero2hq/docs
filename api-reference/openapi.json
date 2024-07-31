@@ -10,63 +10,19 @@
   },
   "servers": [
     {
-      "url": "http://sandbox.mintlify.com"
-    }
-  ],
-  "security": [
-    {
-      "bearerAuth": []
+      "url": "http://{server_ip}:8000"
     }
   ],
   "paths": {
-    "/plants": {
-      "get": {
-        "description": "Returns all plants from the system that the user has access to",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "description": "The maximum number of results to return",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Plant response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Plant"
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      },
+    "/createToken": {
       "post": {
-        "description": "Creates a new plant in the store",
+        "description": "Get token to access the API",
         "requestBody": {
           "description": "Plant to add to the store",
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
-                "$ref": "#/components/schemas/NewPlant"
+                "$ref": "#/components/schemas/GetToken"
               }
             }
           },
@@ -78,7 +34,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Plant"
+                  "$ref": "#/components/schemas/TokenResponse"
                 }
               }
             }
@@ -96,28 +52,107 @@
         }
       }
     },
-    "/plants/{id}": {
-      "delete": {
-        "description": "Deletes a single plant based on the ID supplied",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "ID of plant to delete",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
+    "/addToQueue": {
+        "post": {
+          "description": "Add your data to queue to transfer",
+          "requestBody": {
+            "description": "Plant to add to the store",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddToQueue"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "description": "User response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Response"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "unexpected error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
             }
           }
-        ],
+        }
+    },
+    "/addUser": {
+      "post": {
+        "description": "Add a user within the organization locally",
+        "requestBody": {
+          "description": "Necessary details to create user",
+          "content": {
+            "application/json" : {
+              "schema": {
+                "$ref": "#/components/schemas/AddUser"
+              }
+            }
+          }
+        },
         "responses": {
-          "204": {
-            "description": "Plant deleted",
-            "content": {}
+          "200": {
+            "description": "User response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
           },
           "400": {
             "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/updateUser": {
+      "patch": {
+        "description": "Update the details of an existing user.",
+        "requestBody": {
+          "description": "Details required to update the user.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddUser"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response with updated user details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error response due to invalid request parameters.",
             "content": {
               "application/json": {
                 "schema": {
@@ -132,52 +167,128 @@
   },
   "components": {
     "schemas": {
-      "Plant": {
-        "required": [
-          "name"
-        ],
+      "TokenResponse": {
         "type": "object",
         "properties": {
-          "name": {
-            "description": "The name of the plant",
+          "status": {
+            "description": "Status of the query",
             "type": "string"
           },
-          "tag": {
-            "description": "Tag to specify the type",
+          "access_token": {
+            "description": "Access token to access API",
+            "type": "string"
+          },
+          "token_type": {
+            "description": "Token type",
             "type": "string"
           }
         }
       },
-      "NewPlant": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/Plant"
+      "Response": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "description": "Status of the query",
+            "type": "string"
           },
-          {
-            "required": [
-              "id"
-            ],
-            "type": "object",
-            "properties": {
-              "id": {
-                "description": "Identification number of the plant",
-                "type": "integer",
-                "format": "int64"
-              }
-            }
+          "message": {
+            "description": "The response message",
+            "type": "string"
           }
-        ]
+        }
+      },
+      "AddToQueue": {
+        "properties": {
+          "username": {
+            "description": "Username which is being create within the organisation by the admin",
+            "type": "string"
+          },
+          "name": {
+            "description": "Give your transfer a name",
+            "type": "string"
+          },
+          "submit_speed_in_mbps": {
+            "description": "Assign speed to transfer",
+            "type": "integer"
+          },
+          "receiving_ip": {
+            "description": "Ip address of receiving side. If local ip is accessible the write local IP, like 192.168.1.1",
+            "type": "string"
+          },
+          "sending_ip": {
+            "description": "Ip address of sending server side, like 192.168.1.2",
+            "type": "string"
+          }
+        }
+      },
+      "GetToken": {
+        "required": [
+          "username",
+          "password",
+          "apiKey"
+        ],
+        "type": "object",
+        "properties": {
+          "username": {
+            "description": "Username to access API outside the GUI",
+            "type": "string"
+          },
+          "password": {
+            "description": "Password to access API outside the GUI",
+            "type": "string"
+          },
+          "apiKey": {
+            "description": "api key to access zetarya daemon",
+            "type": "string"
+          }
+        }
+      },
+      "AddUser": {
+        "required": [
+          "apiKey",
+          "username",
+          "password",
+          "allowed_speed_in_mbps",
+          "data_allowed_per_transfer_in_mb",
+          "allowed_ips_for_transfer"
+        ],
+        "type": "object",
+        "properties": {
+          "apiKey": {
+            "description": "api key to access zetarya daemon",
+            "type": "string"
+          },
+          "username": {
+            "description": "A unique identifier for each user.",
+            "type": "string"
+          },
+          "password": {
+            "description": "A unique password for user authentication",
+            "type": "string"
+          },
+          "allowed_speed_in_mbps":  {
+            "description": "Speed (in Mbps) permitted for data transfer. Like 100, 200 or 300.",
+            "type": "integer"
+          },
+          "data_allowed_per_transfer_in_mb": {
+            "description": "The maximum amount of data (in MB) allowed per transfer session.",
+            "type": "integer"
+          },
+          "allowed_ips_for_transfer": {
+            "description": "List of IP addresses of receiving side permitted for data transfer",
+            "type": "object"
+          }
+        }
       },
       "Error": {
         "required": [
-          "error",
+          "status",
           "message"
         ],
         "type": "object",
         "properties": {
-          "error": {
-            "type": "integer",
-            "format": "int32"
+          "status": {
+            "type": "string"
           },
           "message": {
             "type": "string"
