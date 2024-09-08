@@ -1,57 +1,26 @@
 ---
 title: 'Proxy Server'
-description: 'Proxy server so that organization is not connected to internet'
+description: 'Proxy server to ensure organization is not connected to the public internet.'
 ---
 
-## Reverse Proxy
+## Reverse Proxy Configuration
 
-If you wish to set up a reverse proxy for your organization, follow the steps below to configure Nginx as the reverse proxy server.
+The reverse proxy server is used to handle requests and ensure that the organization remains disconnected from the internet. Below is the sample configuration of nginx server.
 
-
-### 1. Install Nginx
-
-<Tabs>
-    <Tab title="For Ubuntu/Debian">
-        ```bash bash
-        sudo apt update
-        sudo apt install nginx
-        ```
-    </Tab>
-    <Tab title="For RHEL/CentOS">
-        ```bash bash
-        sudo yum install epel-release
-        sudo yum install nginx
-        ```
-    </Tab>
-</Tabs>
-
-### 2. Configure Nginx
-
-Create or edit a configuration file in `/etc/nginx/sites-available/` and link it to the sites-enabled directory.
-
-```bash bash
-sudo nano /etc/nginx/sites-available/reverse-proxy.conf
-```
-
-Add the following configuration, replacing `localhost:80` with the local port and `ip.provided.by.us:port` with the target IP and port:
-
-```script nginx
+```bash nginx
 server {
-    listen 80;
-    server_name localhost;
-
-    location / {
-        proxy_pass http://{license_ip}:{license_port};
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
+        listen 8080;
+        server_name xyz;
+        location / {
+            proxy_pass https://license.zetarya.com;
+        }
+        location /licence {
+            proxy_pass https://license.zetarya.com;
+            proxy_set_header Authorization \$http_authorization;
     }
 }
 ```
 
-Enable the configuration by linking the file:
 
-```bash bash
-sudo ln -s /etc/nginx/sites-available/reverse-proxy.conf /etc/nginx/sites-enabled/
-```
+
+Please make sure that your pipeline integrates this configuration to meet your organization's needs. This setup ensures a secure and efficient routing mechanism while maintaining the integrity of sensitive data related to the license.

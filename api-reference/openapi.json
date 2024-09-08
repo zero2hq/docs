@@ -14,45 +14,7 @@
     }
   ],
   "paths": {
-    "/createToken": {
-      "post": {
-        "description": "Get token to access the API",
-        "requestBody": {
-          "description": "Plant to add to the store",
-          "content": {
-            "application/x-www-form-urlencoded": {
-              "schema": {
-                "$ref": "#/components/schemas/GetToken"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "plant response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/TokenResponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/addToQueue": {
+    "/addQueue": {
         "post": {
           "description": "Add your data to queue to transfer",
           "requestBody": {
@@ -127,6 +89,296 @@
         }
       }
     },
+    "/deleteUser": {
+      "delete": {
+        "description": "Delete a user in the organization of a particular location.",
+        "requestBody": {
+          "description": "Necessary required to delete a user.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteUser"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response with updated user details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error response due to invalid request parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/allUsers": {
+      "get": {
+        "description": "Get all the users in the organization of a particular location.",
+        "requestBody": {
+          "description": "Details required to update the user.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BasicRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response with updated user details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error response due to invalid request parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/archives": {
+      "get": {
+        "description": "Fetch all the outgoing and incoming transfers of a particular location.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BasicRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response with updated user details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error response due to invalid request parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/outgoing/queue": {
+      "get": {
+        "description": "Get all the transfers in the queue transferring from current location to others.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BasicRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response with updated user details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error response due to invalid request parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/outgoing/ongoing": {
+      "get": {
+        "description": "Ongoing transfer transferring from current location to another.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BasicRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response with updated user details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error response due to invalid request parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cancelQueueById": {
+      "patch": {
+        "description": "Cancel a transfer in the outgoing queue of a particular location.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CancelQueue"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response with updated user details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error response due to invalid request parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/incoming/complete": {
+      "get": {
+        "description": "List of all completed transfers which has been transferred to the current location.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BasicRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response with updated user details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error response due to invalid request parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/incoming/ongoing": {
+      "get": {
+        "description": "List of all currently ongoing transfers which has been transferred to the current location.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BasicRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response with updated user details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error response due to invalid request parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/updateUser": {
       "patch": {
         "description": "Update the details of an existing user.",
@@ -167,29 +419,12 @@
   },
   "components": {
     "schemas": {
-      "TokenResponse": {
-        "type": "object",
-        "properties": {
-          "status": {
-            "description": "Status of the query",
-            "type": "string"
-          },
-          "access_token": {
-            "description": "Access token to access API",
-            "type": "string"
-          },
-          "token_type": {
-            "description": "Token type",
-            "type": "string"
-          }
-        }
-      },
       "Response": {
         "type": "object",
         "properties": {
           "status": {
-            "description": "Status of the query",
-            "type": "string"
+            "description": "Status of the query true for success or false for error",
+            "type": "boolean"
           },
           "message": {
             "description": "The response message",
@@ -198,7 +433,32 @@
         }
       },
       "AddToQueue": {
+        "required": [
+          "apiUser",
+          "apiPassword",
+          "apiKey",
+          "username",
+          "name",
+          "submit_speed_in_mbps",
+          "receiving_ip",
+          "receive_location_name",
+          "sending_ip",
+          "sending_paths"
+        ],
+        "type": "object",
         "properties": {
+          "apiUser": {
+            "description": "Username which is provided by us.",
+            "type": "string"
+          },
+          "apiPassword": {
+            "description": "Password provided by us.",
+            "type": "string"
+          },
+          "apiKey": {
+            "description": "API key provided by us to access API",
+            "type": "string"
+          },
           "username": {
             "description": "Username which is being create within the organisation by the admin",
             "type": "string"
@@ -215,47 +475,118 @@
             "description": "Ip address of receiving side. If local ip is accessible the write local IP, like 192.168.1.1",
             "type": "string"
           },
+          "receiving_location_name": {
+            "description": "Name of the receiving location",
+            "type": "string"
+          },
           "sending_ip": {
             "description": "Ip address of sending server side, like 192.168.1.2",
+            "type": "string"
+          },
+          "sending_paths": {
+            "description": "comma seperated values and make sure in the end of folder there is / like '/path/to/folder,/path/to/file.txt'",
             "type": "string"
           }
         }
       },
-      "GetToken": {
+      "CancelQueue": {
         "required": [
-          "username",
-          "password",
+          "apiUser",
+          "apiPassword",
+          "apiKey",
+          "id"
+        ],
+        "type": "object",
+        "properties": {
+          "apiUser": {
+            "description": "Username which is provided by us.",
+            "type": "string"
+          },
+          "apiPassword": {
+            "description": "Password provided by us.",
+            "type": "string"
+          },
+          "apiKey": {
+            "description": "API key provided by us to access API",
+            "type": "string"
+          },
+          "id": {
+            "description": "Object id from database of the queue to cancel it to transfer to another location.",
+            "type": "string"
+          }
+        }
+      },
+      "BasicRequest": {
+        "required": [
+          "apiUser",
+          "apiPassword",
           "apiKey"
         ],
         "type": "object",
         "properties": {
-          "username": {
-            "description": "Username to access API outside the GUI",
+          "apiUser": {
+            "description": "Username which is provided by us.",
             "type": "string"
           },
-          "password": {
-            "description": "Password to access API outside the GUI",
+          "apiPassword": {
+            "description": "Password provided by us.",
             "type": "string"
           },
           "apiKey": {
-            "description": "api key to access zetarya daemon",
+            "description": "API key provided by us to access API",
+            "type": "string"
+          }
+        }
+      },
+      "DeleteUser": {
+        "required": [
+          "apiUser",
+          "apiPassword",
+          "apiKey",
+          "username"
+        ],
+        "type": "object",
+        "properties": {
+          "apiUser": {
+            "description": "Username which is provided by us.",
+            "type": "string"
+          },
+          "apiPassword": {
+            "description": "Password provided by us.",
+            "type": "string"
+          },
+          "apiKey": {
+            "description": "API key provided by us to access API.",
+            "type": "string"
+          },
+          "username": {
+            "description": "Username to delete a user from a particular location.",
             "type": "string"
           }
         }
       },
       "AddUser": {
         "required": [
+          "apiUser",
+          "apiPassword",
           "apiKey",
           "username",
           "password",
           "allowed_speed_in_mbps",
-          "data_allowed_per_transfer_in_mb",
           "allowed_ips_for_transfer"
         ],
         "type": "object",
         "properties": {
+          "apiUser": {
+            "description": "Username which is provided by us.",
+            "type": "string"
+          },
+          "apiPassword": {
+            "description": "Password provided by us.",
+            "type": "string"
+          },
           "apiKey": {
-            "description": "api key to access zetarya daemon",
+            "description": "API key provided by us to access API",
             "type": "string"
           },
           "username": {
@@ -270,13 +601,12 @@
             "description": "Speed (in Mbps) permitted for data transfer. Like 100, 200 or 300.",
             "type": "integer"
           },
-          "data_allowed_per_transfer_in_mb": {
-            "description": "The maximum amount of data (in MB) allowed per transfer session.",
-            "type": "integer"
-          },
           "allowed_ips_for_transfer": {
             "description": "List of IP addresses of receiving side permitted for data transfer",
-            "type": "object"
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           }
         }
       },
@@ -288,7 +618,7 @@
         "type": "object",
         "properties": {
           "status": {
-            "type": "string"
+            "type": "boolean"
           },
           "message": {
             "type": "string"

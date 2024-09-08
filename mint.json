@@ -56,10 +56,17 @@
     {
       "group": "Endpoint Examples",
       "pages": [
-        "api-reference/endpoint/create",
-        "api-reference/endpoint/addtoqueue",
         "api-reference/endpoint/userAdd",
-        "api-reference/endpoint/userUpdate"
+        "api-reference/endpoint/getAllUsers",
+        "api-reference/endpoint/userUpdate",
+        "api-reference/endpoint/userDelete",
+        "api-reference/endpoint/addQueue",
+        "api-reference/endpoint/cancelQueueById",
+        "api-reference/endpoint/archives",
+        "api-reference/endpoint/queue",
+        "api-reference/endpoint/ongoing",
+        "api-reference/endpoint/complete",
+        "api-reference/endpoint/incomingOngoing"
       ]
     }
   ],
