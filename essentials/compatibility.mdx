@@ -19,7 +19,7 @@ icon: 'linux'
     alt="Hero Dark"
 />
 
-## Client Side GUI
+## Client side GUI
 
 <Tabs>
     <Tab title="Debian">
@@ -44,7 +44,7 @@ icon: 'linux'
 [//]: # (</Tab>)
 </Tabs>
 
-## Server
+## zetarya server
 
 <Tabs>
     <Tab title="Debian">
@@ -55,6 +55,24 @@ icon: 'linux'
     </Tab>
 </Tabs>
 
-> Server needs to be powerful on both sending and receiving sides in terms or both RAM and CPU.
+### Minimum Hardware Specifications for single bi-directional connection
+
+| Network Bandwidth   | CPU                        | RAM           | SWAP  | Storage Read Speed  |
+| --------------- | -------------------------- | ------------- | ----- | ------------------- |
+| **100 Mbps**    | 8 Cores @ 2.6 GHz    | 8 GB          | 100 GB| 230 Mbps            |
+| **200 Mbps**    | 16 Cores @ 2.6 GHz     | 16 GB          | 100 GB| 360 Mbps            |
+| **500 Mbps**    | 16 Cores @ 3.5 3GHz    | 32 GB         | 100 GB| 800 Mbps            |
+| **1 Gbps**      | 32 Cores @ 3.5 GHz     | 64 GB         | 200 GB| 2 - 2.5 Gbps        |
+
+<Info>
+
+    - The listed CPU frequencies represent the **base clock speeds**.
+    - Storage write speeds are **assumed to match** the read speeds.
+    - RAM should be **DDR4** with a minimum frequency of **3200 MHz**.
+
+</Info>
+
+
+These specifications are optimized for the following network speeds and use cases, ensuring balanced performance across different network environments.
 
 
