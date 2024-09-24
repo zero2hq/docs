@@ -10,7 +10,7 @@
   },
   "servers": [
     {
-      "url": "http://{server_ip}:8000"
+      "url": "http://{server_ip}:6002"
     }
   ],
   "paths": {
