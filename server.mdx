@@ -3,9 +3,9 @@ title: 'Servers'
 description: 'Servers that will act as send or receive data'
 ---
 
-## Setup your server
+## Setup Your Server
 
-Setup server and deploy on all the location where you want to send or receive to start using it.
+Set up the server and deploy it to all locations where you want to send or receive data.
 
 <img
     className="block dark:hidden"
@@ -18,5 +18,33 @@ Setup server and deploy on all the location where you want to send or receive to
     alt="Hero Dark"
 />
 
-We have created an `install.sh` which will automatically install database as daemon and run zetarya server as daemon.
+### 1. Update Configuration
 
+Before running `install.sh`, edit the `daemon.config` file to suit your needs.
+
+### 2. Run Installation Script
+
+Execute `install.sh` to automatically:
+
+- Install the database as a daemon.
+- Run the Zetarya server as a daemon.
+
+### 3. Verify Installation
+
+After installation, use the following commands to confirm everything is set up correctly.
+
+#### Verify Admin User
+
+Create an admin with the default password (you can change it later):
+
+```bash
+curl http://localhost:6002/admin
+```
+
+#### Check License Information
+
+Retrieve your license details. If it shows 0 licenses, the license could not be fetched:
+
+```bash
+curl http://localhost:6002/
+```
