@@ -78,3 +78,15 @@ If you are using 2 Pay-As-You-Use (PAYU) licenses, the required ports are:
 
 - **Data Port Range:** `37090` - `37092`
 - **Control Port Range:** `20120` - `20122`
+
+### 6. Verify Accessibility
+
+After everything is done verify Location A is accessible from Location B and vice versa.
+
+Let say your Location A ipv4 is `192.168.1.10` and `6002` port is open then from Location B ping the zetarya server to Location A.
+
+```bash
+curl http:/192.168.1.10:6002/
+```
+
+If you see output and have non zero available license appear then we are good to go.
