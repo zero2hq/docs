@@ -21,7 +21,9 @@ Set up the server and deploy it to all locations where you want to send or recei
 ### 1. Update Configuration
 
 Before running `install.sh`, edit the `daemon.config` file to suit your needs.
-On receive fullpath please add `/` at the end as it is a folder where you will receive all your data at current location.
+1. `location` field write the name of the location so that users can identify it easily.
+2. `license_url` field add the ip with port of the license (for ex: `http://192.168.1.25:8000`) if you have setup a proxy server otherwise keep the default url.
+3. `receive_fullpath` please add `/` at the end as it is a folder where you will receive all your data at current location.
 
 ### 2. Run Installation Script
 
