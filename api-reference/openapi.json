@@ -379,6 +379,42 @@
         }
       }
     },
+    "/outgoing/priority": {
+      "patch": {
+        "description": "Prioritize the transfer to send it earlier or later in queue.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Priority"
+              }
+            }
+        }
+      },
+        "responses": {
+          "200": {
+            "description": "Successful response with updated user details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error response due to invalid request parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+      } ,
     "/updateUser": {
       "patch": {
         "description": "Update the details of an existing user.",
@@ -486,6 +522,38 @@
           "sending_paths": {
             "description": "comma seperated values and make sure in the end of folder there is / like '/path/to/folder,/path/to/file.txt'",
             "type": "string"
+          }
+        }
+      },
+      "Priority": {
+        "required": [
+          "apiUser",
+          "apiPassword",
+          "apiKey",
+          "currentPriority",
+          "updatedPriority"
+        ],
+        "type": "object",
+        "properties": {
+          "apiUser": {
+            "description": "Username which is provided by us.",
+            "type": "string"
+          },
+          "apiPassword": {
+            "description": "Password provided by us.",
+            "type": "string"
+          },
+          "apiKey": {
+            "description": "API key provided by us to access API",
+            "type": "string"
+          },
+          "currentPriority": {
+            "description": "Index of the transfer which is in queue you want to change its priority. The index starts from 1 not from 0.",
+            "type": "integer"
+          },
+          "updatedPriority": {
+            "description": "Index at which you want to prioritize the transfer. The index starts from 1 not from 0.",
+            "type": "integer"
           }
         }
       },

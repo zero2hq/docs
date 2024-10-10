@@ -61,6 +61,7 @@
         "api-reference/endpoint/userUpdate",
         "api-reference/endpoint/userDelete",
         "api-reference/endpoint/addQueue",
+        "api-reference/endpoint/priority",
         "api-reference/endpoint/archives",
         "api-reference/endpoint/queue",
         "api-reference/endpoint/ongoing",
